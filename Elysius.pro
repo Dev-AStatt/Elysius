@@ -25,6 +25,6 @@ HEADERS += \
 	engine/graphicsEngine.h \
 	libraries/olcPixelGameEngine.h \
 	structures/Epos.h \
-	world/planet.h \
+	world/OrbitalObject.h \
 	world/solarSystem.h \
 	world/systemsManager.h
