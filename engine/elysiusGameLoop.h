@@ -10,18 +10,21 @@
 //  0---------------------------------------------------------------------------------------------------0
 //
 
-// Override base class with your custom functionality
 class ElysiusGameLoop : public olc::PixelGameEngine
 {
 public:
     ElysiusGameLoop();
-
     bool OnUserCreate() override;
-
     bool OnUserUpdate(float fElapsedTime) override;
 
 private:
     std::shared_ptr<GraphicsEngine> graphicsEngine;
     std::unique_ptr<SystemsManager> systemsManager;
+
+    uint64_t gameTick= 0;
+    float accTime = 0;
+    bool tickUpdate = false;
+    //Functions
+    void updateTick(float et);
 };
 

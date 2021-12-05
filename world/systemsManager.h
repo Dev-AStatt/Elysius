@@ -18,11 +18,27 @@ public:
         if(systemID >= (int)activeSystems.size()) {return;}
         for(int i = 0; i < activeSystems[systemID]->getBodyCount(); ++i) {
             const auto &t = activeSystems[systemID]->getObjectAt(i);
-            graphics->drawBody(t->getPos(), t->getRadius());
+
+            graphics->drawBody(t->getPos(), t->getRadius(), convertColToOLC(t->getCol()));
         }
     }
+
+    void updateAll(uint64_t currentTick) {
+        //if(currentTick % 10 != 0) { return; }
+        for(int i = 0; i < (int)activeSystems.size(); ++i) {
+            activeSystems[i]->updateSystem(currentTick);
+        }
+    }
+
 private:
     std::shared_ptr<GraphicsEngine> graphics;
     std::vector<std::unique_ptr<SolarSystem>> activeSystems;
 
+
+    olc::Pixel convertColToOLC(const BodyColor col) const {
+        if(col == BodyColor::yellow) {return olc::YELLOW;}
+        if(col == BodyColor::blue  ) {return olc::BLUE;  }
+        if(col == BodyColor::red   ) {return olc::RED;   }
+        else { return olc::WHITE;}
+    }
 };

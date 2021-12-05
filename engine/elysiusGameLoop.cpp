@@ -20,9 +20,32 @@ bool ElysiusGameLoop::OnUserCreate() {
 bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     // Called once per frame
     Clear(olc::BLACK);
-
+    updateTick(fElapsedTime);
     systemsManager->drawSystem(0);
 
     return true;
 }
+
+void ElysiusGameLoop::updateTick(float et) {
+    accTime += et;
+    tickUpdate = false;
+    if(accTime > (0.016)) {
+       accTime = 0;
+       gameTick += 1;
+       tickUpdate = true;
+    }
+
+    //This is where stuff that needs updates go
+    if(tickUpdate) {
+        systemsManager->updateAll(gameTick);
+
+    }
+}
+
+
+
+
+
+
+
 
