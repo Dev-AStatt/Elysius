@@ -9,6 +9,7 @@ LIBS += -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        devUtilities.h \
         engine/elysiusGameLoop.cpp \
         engine/graphicsEngine.cpp \
         libraries/olcPixelGameEngine.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
 	engine/elysiusGameLoop.h \
 	engine/gameConf.h \
 	engine/graphicsEngine.h \
+	engine/userInput.h \
 	libraries/olcPixelGameEngine.h \
 	structures/Epos.h \
 	world/OrbitalObject.h \
