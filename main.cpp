@@ -2,7 +2,7 @@
 
 int main() {
     ElysiusGameLoop demo;
-    if (demo.Construct(256, 256, 4, 4))
+    if (demo.Construct(1048, 1048, 1, 1))
         demo.Start();
     return 0;
 }
