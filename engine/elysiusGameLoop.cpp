@@ -11,6 +11,7 @@ ElysiusGameLoop::ElysiusGameLoop() {
 bool ElysiusGameLoop::OnUserCreate() {
     graphicsEngine = std::make_shared<GraphicsEngine>(this);
     systemsManager = std::make_unique<SystemsManager>(graphicsEngine);
+    userInput = std::make_unique<UserInput>(this, graphicsEngine);
 
     systemsManager->newSystem(Ei2d(0,0));
 
@@ -21,6 +22,7 @@ bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     // Called once per frame
     Clear(olc::BLACK);
     updateTick(fElapsedTime);
+    userInput->updateUserInput();
     systemsManager->drawSystem(0);
 
     return true;

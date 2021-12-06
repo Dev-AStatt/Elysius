@@ -21,10 +21,13 @@ public:
         for(int i = 1; i < (int)bodies.size(); ++i) {
             switch (bodies[i]->getObjectType()) {
                 case BodyType::planet :
+                    //planets orbit the sun ID 0. get position of the sun and pass to planet
                     bodies[i]->updatePos(bodies[0]->getPos());
                 break;
 
                 case BodyType::moon :
+                    // ask the body[i] for the id of its orbit planet and then ask the orbit planet
+                    // what its position is, then give that position to updatePos()
                     bodies[i]->updatePos(bodies[bodies[i]->getOrbiting()]->getPos());
                 break;
 
