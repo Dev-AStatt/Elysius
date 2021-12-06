@@ -24,7 +24,7 @@ public:
     }
 
     void updateAll(uint64_t currentTick) {
-        //if(currentTick % 10 != 0) { return; }
+        if(currentTick % 2 != 0) { return; }
         for(int i = 0; i < (int)activeSystems.size(); ++i) {
             activeSystems[i]->updateSystem(currentTick);
         }

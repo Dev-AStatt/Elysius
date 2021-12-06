@@ -5,6 +5,7 @@
 enum class BodyType {
     sun,
     planet,
+    moon,
     astroid
 };
 
@@ -18,8 +19,9 @@ enum class BodyColor {
 class OrbitalObject {
 public:
     OrbitalObject(const BodyType type, const int solRad, const int newRad,
-                  const int newDensity, const BodyColor col = BodyColor::white) :
-                  radius(newRad), density(newDensity), objectType(type), color(col), solarRadius(solRad) {
+                  const int newDensity, const int orbiting, const BodyColor col = BodyColor::white) :
+                  objectType(type), radius(newRad), solarRadius(solRad),
+                  density(newDensity),  orbitingID(orbiting),   color(col){
         angle = rand() % 360;
     }
 
@@ -29,6 +31,7 @@ public:
     int  getDensity()  const { return density; }
     BodyColor getCol() const { return color;   }
     BodyType getObjectType() const { return objectType;}
+    int getOrbiting()  const { return orbitingID; }
 
     void setAngle(const int a) {angle = (a % 360);}
     void incrementAngle() {
@@ -39,21 +42,22 @@ public:
         angle = newAngle;
     }
 
-    void updatePos() {
+    void updatePos(const Ei2d& rotationOrigin) {
         incrementAngle();
         if(objectType == BodyType::sun) {return;}
         double unitx = sin(angle * 3.14 / 180);
         double unity = cos(angle * 3.14 / 180);
         double x = unitx * solarRadius;
         double y = unity * solarRadius;
-        solarPos = {(int)x, (int)y};
+        solarPos = Ei2d((int)x, (int)y) + rotationOrigin;
    }
 private:
     Ei2d solarPos;
     double angle = 0;
-    const int radius;
-    const int density;
     const BodyType objectType;
-    const BodyColor color;
+    const int radius;
     const int solarRadius;
+    const int density;
+    int orbitingID;
+    const BodyColor color;
 };
