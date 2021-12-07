@@ -11,4 +11,13 @@ void GraphicsEngine::drawBody(Ei2d pos, int radius, olc::Pixel color) const {
     }
 }
 
+void GraphicsEngine::drawOrbit(const Ei2d orbitCenterPos,const int solarRadius) const {
+    Ei2d finalPos = (orbitCenterPos*scale) + centerOffset;
+    int newRadius = solarRadius * scale;
+    pge->DrawCircle(finalPos.x,finalPos.y,newRadius,olc::DARK_CYAN);
+}
 
+
+void GraphicsEngine::drawString(const std::string s, const olc::vi2d& location) {
+    pge->DrawStringDecal(location,s);
+}

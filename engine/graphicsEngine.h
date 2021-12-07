@@ -11,9 +11,11 @@ public:
     }
 
     void drawBody(Ei2d pos, int radius, olc::Pixel color = olc::WHITE) const;
+    void drawOrbit(const Ei2d pos, const int solarRadius) const;
     void setMousePos(const olc::vi2d& mouse) {mousePosition = mouse; }
     void incrementScale() {scale += 1;}
     void decrementScale() {scale -= 1;}
+
 
 private:
     olc::PixelGameEngine* pge;
@@ -26,4 +28,7 @@ private:
         centerOffset.x = pge->ScreenHeight() / 2;
         centerOffset.y = pge->ScreenWidth()  / 2;
     }
+
+    void drawString(const std::string s, const olc::vi2d& location);
+
 };

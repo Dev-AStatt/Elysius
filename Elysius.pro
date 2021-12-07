@@ -29,4 +29,5 @@ HEADERS += \
 	structures/Epos.h \
 	world/OrbitalObject.h \
 	world/solarSystem.h \
+	world/spacecraft.h \
 	world/systemsManager.h

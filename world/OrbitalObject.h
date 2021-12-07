@@ -27,11 +27,12 @@ public:
 
     Ei2d getPos()      const { return solarPos;}
     int  getAngle()    const { return (int)angle;   }
-    int  getRadius()   const { return radius;  }
     int  getDensity()  const { return density; }
     BodyColor getCol() const { return color;   }
     BodyType getObjectType() const { return objectType;}
-    int getOrbiting()  const { return orbitingID; }
+    int getOrbiting()       const { return orbitingID; }
+    int getObjectRadius()   const { return radius;  }
+    int getOrbitRadius()    const { return solarRadius;}
 
     void setAngle(const int a) {angle = (a % 360);}
     void incrementAngle() {

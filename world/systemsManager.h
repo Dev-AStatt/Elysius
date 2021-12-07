@@ -15,11 +15,19 @@ public:
     }
 
     void drawSystem(int systemID) const {
+        //check if system to draw is in vector active System
         if(systemID >= (int)activeSystems.size()) {return;}
+        //draw all objects in system
         for(int i = 0; i < activeSystems[systemID]->getBodyCount(); ++i) {
+            //with system
             const auto &t = activeSystems[systemID]->getObjectAt(i);
 
-            graphics->drawBody(t->getPos(), t->getRadius(), convertColToOLC(t->getCol()));
+            //get the object that t is orbiting from the solar system
+            auto &orbiting = activeSystems[systemID]->getObjectAt(t->getOrbiting());
+            //draw ring of orbit
+            graphics->drawOrbit(orbiting->getPos(),t->getOrbitRadius());
+            //draw body
+            graphics->drawBody(t->getPos(), t->getObjectRadius(), convertColToOLC(t->getCol()));
         }
     }
 
