@@ -21,3 +21,9 @@ void GraphicsEngine::drawOrbit(const Ei2d orbitCenterPos,const int solarRadius) 
 void GraphicsEngine::drawString(const std::string s, const olc::vi2d& location) {
     pge->DrawStringDecal(location,s);
 }
+
+void GraphicsEngine::drawSpacecraft(const Ei2d &pos, const olc::Pixel color) const {
+    olc::vi2d finalPos = adjustVi2dToScale( utils->ei2dToVi2d(pos));
+    float s = scale * 0.25;
+    pge->DrawRotatedDecal(finalPos,decShip.get(),0, {0,0}, {s,s});
+}

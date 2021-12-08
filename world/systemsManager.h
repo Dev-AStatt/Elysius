@@ -2,6 +2,7 @@
 #include <memory>
 #include "world/solarSystem.h"
 #include "engine/graphicsEngine.h"
+#include "spacecraft.h"
 
 class SystemsManager {
 public:
@@ -12,6 +13,7 @@ public:
 
     void newSystem(const Ei2d& startPos) {
         activeSystems.emplace_back(std::make_unique<SolarSystem>(startPos));
+        spacecraft = std::make_unique<Spacecraft>(0, true, 1, 15, Ei2d(0,0));
     }
 
     void drawSystem(int systemID) const {
@@ -29,6 +31,9 @@ public:
             //draw body
             graphics->drawBody(t->getPos(), t->getObjectRadius(), convertColToOLC(t->getCol()));
         }
+        if(systemID == spacecraft->getSolarSystem()) {
+            graphics->drawSpacecraft(spacecraft->getPos());
+        }
     }
 
     void updateAll(uint64_t currentTick) {
@@ -36,12 +41,14 @@ public:
         for(int i = 0; i < (int)activeSystems.size(); ++i) {
             activeSystems[i]->updateSystem(currentTick);
         }
+        auto &p = activeSystems[spacecraft->getSolarSystem()]->getObjectAt(spacecraft->getObitingBodyID());
+        spacecraft->updateOrbitPos(p->getPos());
     }
 
 private:
     std::shared_ptr<GraphicsEngine> graphics;
     std::vector<std::unique_ptr<SolarSystem>> activeSystems;
-
+    std::unique_ptr<Spacecraft> spacecraft;
 
     olc::Pixel convertColToOLC(const BodyColor col) const {
         if(col == BodyColor::yellow) {return olc::YELLOW;}
