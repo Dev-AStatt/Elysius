@@ -16,7 +16,7 @@ public:
 
     void drawBody(Ei2d pos, int radius, olc::Pixel color = olc::WHITE) const;
     void drawOrbit(const Ei2d pos, const int solarRadius) const;
-    void drawSpacecraft(const Ei2d& pos, const olc::Pixel color = olc::WHITE) const;
+    void drawSpacecraft(const Ei2d& pos,const int angle, const olc::Pixel color = olc::WHITE) const;
     void setMousePos(const olc::vi2d& mouse) {mousePosition = mouse; }
     void incrementScale() {scale += 1;}
     void decrementScale() {scale -= 1;}

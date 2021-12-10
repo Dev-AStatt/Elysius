@@ -22,8 +22,9 @@ void GraphicsEngine::drawString(const std::string s, const olc::vi2d& location) 
     pge->DrawStringDecal(location,s);
 }
 
-void GraphicsEngine::drawSpacecraft(const Ei2d &pos, const olc::Pixel color) const {
+void GraphicsEngine::drawSpacecraft(const Ei2d &pos, const int angle, const olc::Pixel color) const {
     olc::vi2d finalPos = adjustVi2dToScale( utils->ei2dToVi2d(pos));
-    float s = scale * 0.25;
-    pge->DrawRotatedDecal(finalPos,decShip.get(),0, {0,0}, {s,s});
+    float s = scale * 0.1;
+    float aRad = (-1) * angle * 3.14 / 180;
+    pge->DrawRotatedDecal(finalPos,decShip.get(), aRad + 1.57, {50,50}, {s,s});
 }

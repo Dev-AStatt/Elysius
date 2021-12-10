@@ -13,7 +13,7 @@ public:
 
     void newSystem(const Ei2d& startPos) {
         activeSystems.emplace_back(std::make_unique<SolarSystem>(startPos));
-        spacecraft = std::make_unique<Spacecraft>(0, true, 1, 15, Ei2d(0,0));
+        spacecraft = std::make_unique<Spacecraft>(0, true, 0, 15, Ei2d(0,0));
     }
 
     void drawSystem(int systemID) const {
@@ -32,12 +32,12 @@ public:
             graphics->drawBody(t->getPos(), t->getObjectRadius(), convertColToOLC(t->getCol()));
         }
         if(systemID == spacecraft->getSolarSystem()) {
-            graphics->drawSpacecraft(spacecraft->getPos());
+            graphics->drawSpacecraft(spacecraft->getPos(), spacecraft->getOrbitAngle());
         }
     }
 
     void updateAll(uint64_t currentTick) {
-        if(currentTick % 2 != 0) { return; }
+        //if(currentTick % 2 != 0) { return; }
         for(int i = 0; i < (int)activeSystems.size(); ++i) {
             activeSystems[i]->updateSystem(currentTick);
         }
