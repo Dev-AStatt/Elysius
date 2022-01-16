@@ -12,7 +12,7 @@ bool ElysiusGameLoop::OnUserCreate() {
     graphicsEngine = std::make_shared<GraphicsEngine>(this);
     systemsManager = std::make_unique<SystemsManager>(graphicsEngine);
     userInput = std::make_unique<UserInput>(this, graphicsEngine);
-    //menu = std::make_unique<MenuSystem>(ScreenHeight(), ScreenWidth());
+    menu = std::make_unique<MenuStructure>(graphicsEngine, ScreenHeight(), ScreenWidth());
     systemsManager->newSystem(Ei2d(0,0));
 
     return true;

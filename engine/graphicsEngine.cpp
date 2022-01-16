@@ -40,3 +40,10 @@ std::string GraphicsEngine::vi2dToString(const olc::vi2d& point) const {
     std::string s = "{ " + std::to_string(point.x) + ", " + std::to_string(point.y) + " }";
     return s;
 }
+
+void GraphicsEngine::drawRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const {
+    pge->DrawRect(tl.x,tl.y,br.x,br.y, color);
+
+
+}
+

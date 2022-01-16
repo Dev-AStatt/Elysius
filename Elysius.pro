@@ -21,6 +21,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+	engine/MenuStructure.h \
 	engine/elysiusGameLoop.h \
 	engine/gameConf.h \
 	engine/graphicsEngine.h \
