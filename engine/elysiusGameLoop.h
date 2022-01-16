@@ -1,5 +1,4 @@
 #pragma once
-
 #include "libraries/olcPixelGameEngine.h"
 #include "engine/graphicsEngine.h"
 #include "world/systemsManager.h"
@@ -21,7 +20,6 @@ private:
     std::shared_ptr<GraphicsEngine> graphicsEngine;
     std::unique_ptr<SystemsManager> systemsManager;
     std::unique_ptr<UserInput> userInput;
-
     uint64_t gameTick= 0;
     float accTime = 0;
     bool tickUpdate = false;

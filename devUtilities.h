@@ -35,5 +35,6 @@ public:
         //just call the other written function
         return vi2dPointInSquare(ei2dToVi2d(ei2dPoint), ei2dToVi2d(squareCenterPos), radius);
     }
+
 };
 }
