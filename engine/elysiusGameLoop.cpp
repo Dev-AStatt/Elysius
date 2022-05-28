@@ -22,9 +22,11 @@ bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     // Called once per frame
     Clear(olc::BLACK);
     updateTick(fElapsedTime);
+
     userInput->updateUserInput();
     systemsManager->drawSystem(0);
-
+    //Here is where we Have the UI
+    menu->yesNoMenu("Yes or No?");
     return true;
 }
 

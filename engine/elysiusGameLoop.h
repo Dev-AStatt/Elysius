@@ -8,7 +8,6 @@
 //  |   The goal of this game will be to complete a Dysonsphere around a planet to supply power to your |
 //  |   intersteller ships. Very symple graphics and core mechanics.                                    |
 //  0---------------------------------------------------------------------------------------------------0
-//
 
 class ElysiusGameLoop : public olc::PixelGameEngine
 {

@@ -27,6 +27,7 @@ public:
     void incrementScale() {scale += 1;}
     void decrementScale() {scale -= 1;}
     void drawRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
+    void drawFilledRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
 
 
 private:

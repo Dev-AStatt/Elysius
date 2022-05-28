@@ -32,7 +32,8 @@ public:
             graphics->drawBody(t->getPos(), t->getObjectRadius(), convertColToOLC(t->getCol()));
         }
         if(systemID == spacecraft->getSolarSystem()) {
-            graphics->drawSpacecraft(spacecraft->getPos(), spacecraft->getOrbitAngle());
+            //just while working on the menu, comment out draw spacecraft
+            //graphics->drawSpacecraft(spacecraft->getPos(), spacecraft->getOrbitAngle());
         }
     }
 

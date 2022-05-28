@@ -10,6 +10,7 @@ LIBS += -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 
 SOURCES += \
         devUtilities.h \
+        engine/MenuStructure.cpp \
         engine/elysiusGameLoop.cpp \
         engine/graphicsEngine.cpp \
         libraries/olcPixelGameEngine.cpp \
