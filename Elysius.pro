@@ -10,7 +10,6 @@ LIBS += -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 
 SOURCES += \
         devUtilities.h \
-        engine/MenuStructure.cpp \
         engine/elysiusGameLoop.cpp \
         engine/graphicsEngine.cpp \
         libraries/olcPixelGameEngine.cpp \
@@ -22,10 +21,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-	engine/MenuStructure.h \
-	engine/elysiusGameLoop.h \
+        engine/elysiusGameLoop.h \
 	engine/gameConf.h \
 	engine/graphicsEngine.h \
+    engine/menus/MenuYesNo.h \
 	engine/userInput.h \
 	libraries/olcPixelGameEngine.h \
 	structures/Epos.h \

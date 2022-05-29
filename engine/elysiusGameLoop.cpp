@@ -12,7 +12,6 @@ bool ElysiusGameLoop::OnUserCreate() {
     graphicsEngine = std::make_shared<GraphicsEngine>(this);
     systemsManager = std::make_unique<SystemsManager>(graphicsEngine);
     userInput = std::make_unique<UserInput>(this, graphicsEngine);
-    menu = std::make_unique<MenuStructure>(graphicsEngine, ScreenHeight(), ScreenWidth());
     systemsManager->newSystem(Ei2d(0,0));
 
     return true;
@@ -26,7 +25,11 @@ bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     userInput->updateUserInput();
     systemsManager->drawSystem(0);
     //Here is where we Have the UI
-    menu->yesNoMenu("Yes or No?");
+    if(GetKey(olc::Key::Q).bReleased) {
+        graphicsEngine->askYesNoMenu("Yes or No?");
+    }
+    graphicsEngine->drawActiveMenus();
+
     return true;
 }
 
