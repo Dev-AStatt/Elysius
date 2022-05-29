@@ -2,7 +2,7 @@
 #include "libraries/olcPixelGameEngine.h"
 #include "engine/graphicsEngine.h"
 #include "world/systemsManager.h"
-#include "engine/userInput.h"
+#include "engine/GameStates.h"
 
 //  0---------------------------------------------------------------------------------------------------0
 //  |   The goal of this game will be to complete a Dysonsphere around a planet to supply power to your |
@@ -19,12 +19,15 @@ public:
 private:
     std::shared_ptr<GraphicsEngine> graphicsEngine;
     std::unique_ptr<SystemsManager> systemsManager;
-    std::unique_ptr<UserInput> userInput;
+    std::shared_ptr<GameStates> gameStates;
+
 
     uint64_t gameTick= 0;
     float accTime = 0;
     bool tickUpdate = false;
+
     //Functions
     void updateTick(float et);
+    void updateUserInput();
 };
 

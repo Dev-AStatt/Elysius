@@ -4,10 +4,11 @@
 #include "structures/Epos.h"
 #include "devUtilities.h"
 #include "menus/MenuYesNo.h"
+#include "engine/GameStates.h"
 
 class GraphicsEngine {
 public:
-    GraphicsEngine(olc::PixelGameEngine* p);
+    GraphicsEngine(olc::PixelGameEngine* p, std::shared_ptr<GameStates>);
 
     void drawBody(Ei2d pos, int radius, olc::Pixel color = olc::WHITE) const;
     void drawOrbit(const Ei2d pos, const int solarRadius) const;
@@ -15,6 +16,7 @@ public:
     void setMousePos(const olc::vi2d& mouse) {mousePosition = mouse; }
     void incrementScale() {scale += 1;}
     void decrementScale() {scale -= 1;}
+    //Put note here
     void drawActiveMenus() const;
    void drawMenuBackground(const Ei2d& topLeft, const Ei2d& widthHight,
                            const olc::Pixel& bgColor, const olc::Pixel& bColor, const int boarderSize) const;
@@ -28,6 +30,7 @@ public:
 private:
     olc::PixelGameEngine* pge;
     std::unique_ptr<ASU::Utils> utils;
+    std::shared_ptr<GameStates> gameStates;
     //Stuff for Menus
     std::vector<std::unique_ptr<Generic_Menu>> activeMenus;
     Ei2d centerOffset;

@@ -5,11 +5,9 @@
 //  0-------------0
 
 //Constructor
-GraphicsEngine::GraphicsEngine(olc::PixelGameEngine* p) : pge(p) {
+GraphicsEngine::GraphicsEngine(olc::PixelGameEngine* p, std::shared_ptr<GameStates> gs) : pge(p), gameStates(gs) {
     calcCenterOff();
     utils = std::make_unique<ASU::Utils>();
-
-
 
     //getting decals for the ship
     std::string spaceship_file_name = "art/ship.png";
@@ -61,6 +59,9 @@ void GraphicsEngine::drawFilledRect(const Ei2d tl, const Ei2d br, olc::Pixel col
 
 //Creates and Draws a yes no menu, returns answer
 bool GraphicsEngine::askYesNoMenu(std::string s) {
+    //puase the game because we are putting up a menu
+    gameStates->setGameState(gameStates->gs_pause);
+    //add the menu
     activeMenus.emplace_back(std::make_unique<MenuYesNo>(getScreenWidth(),getScreenHight(),s));
     return true;
 }
