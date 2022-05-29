@@ -25,7 +25,7 @@ HEADERS += \
         engine/elysiusGameLoop.h \
 	engine/gameConf.h \
 	engine/graphicsEngine.h \
-    engine/menus/MenuYesNo.h \
+    engine/menus/Menus.h \
 	libraries/olcPixelGameEngine.h \
 	structures/Epos.h \
 	world/OrbitalObject.h \

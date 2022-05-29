@@ -115,8 +115,7 @@ public:
         headerString = q;
 
         // Setup Fields for Menu
-        options = {"YES", "NO", "MAYBE"};
-        headerString = "Move to New?";
+        options = {"YES", "NO"};
 
         menuHight = 250;
         menuWidth = 225;

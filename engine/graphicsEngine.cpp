@@ -26,7 +26,6 @@ void GraphicsEngine::drawBody(Ei2d pos, int radius, olc::Pixel color) const {
     radius = radius * scale;
     pge->FillCircle(finalPos.x,finalPos.y,radius, color);
     //if mouse position is within circle draw a hilight around it
-    drawString(vi2dToString(mousePosition), {0,0});
     if(utils->ei2dPointInSquare(utils->vi2dToEi2d(mousePosition),finalPos, radius)){
         pge->DrawCircle(finalPos.x,finalPos.y,radius, olc::GREEN);
     }
@@ -82,6 +81,14 @@ void GraphicsEngine::drawActiveMenus() const {
                            activeMenus[i]->BackgroundColor(),
                            activeMenus[i]->BoarderColor(),
                            activeMenus[i]->BoarderSize());
+        //Check for Mouse Focus
+        Ei2d mousePos = utils->vi2dToEi2d(pge->GetMousePos());
+        //if mouse is within menu, set mouse focus to mf_menu
+        //if mouse is out of menu, set mouse focus to mf_game
+        if(utils->ei2dPointInRect(mousePos, activeMenus[i]->TopLeft_Ei2d(), activeMenus[i]->WidthHight_Ei2d())) {
+            gameStates->setMouseFocus(gameStates->mf_menu);
+        } else {gameStates->setMouseFocus(gameStates->mf_game);}
+
         //Draw Header if has one
         if(activeMenus[i]->HasHeader()) {
             //Draw Box
@@ -97,7 +104,6 @@ void GraphicsEngine::drawActiveMenus() const {
         }
 
         std::vector<Ei2d> optionPoints = activeMenus[i]->OptionTopLeftPoints();
-        Ei2d mousePos = utils->vi2dToEi2d(pge->GetMousePos());
         //Loop through Menu Items
         for(int p = 0; p < (int)optionPoints.size(); ++p) {
             //Check Mouse Colision
@@ -136,6 +142,15 @@ void GraphicsEngine::drawMenuBackground(const Ei2d& topLeft, const Ei2d& widthHi
     drawFilledRect(Ei2d(topLeft.x + widthHight.x - boarderSize,topLeft.y), Ei2d(boarderSize,widthHight.y),bColor);
     drawFilledRect(Ei2d(topLeft.x,topLeft.y + widthHight.y - boarderSize), Ei2d(widthHight.x,boarderSize),bColor);
 }
+
+void GraphicsEngine::drawDebugInfo() const {
+    drawString(vi2dToString(mousePosition), {0,0});
+
+    //GameState and Menu Focus
+    drawString("Game State: " + std::to_string(gameStates->GameState()),  {0,10});
+    drawString("Menu Focus: " + std::to_string(gameStates->MouseFocus()), {0,20});
+}
+
 
 //  0-------------0
 //  |   PRIVATE   |

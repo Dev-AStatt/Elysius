@@ -28,11 +28,13 @@ bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     if(gameStates->GameState() == gameStates->gs_play) {
         updateTick(fElapsedTime);
     }
-
     systemsManager->drawSystem(0);
-
     graphicsEngine->drawActiveMenus();
     updateUserInput();
+
+
+    //Debug Information
+    graphicsEngine->drawDebugInfo();
 
     return true;
 }
