@@ -10,16 +10,24 @@ public:
     //General Fetch Statements
     bool HasHeader()        const {return hasHeader;}
     int BoarderSize()       const {return boarderSize;}
+    float TextScale()         const {return textScale;}
     Ei2d TopLeft_Ei2d()     const {return topLeft_Ei2d;}
     Ei2d WidthHight_Ei2d()  const {return widthHight_Ei2d;}
     Ei2d OptionBoxWH_Ei2d()     const {return optionBoxWH_Ei2d;}
+    Ei2d OptionBoxTextOffset()  const {return optionBoxTextOffset_Ei2d;}
     Ei2d HeaderTopLeft_Ei2d()   const {return headerTopLeft_Ei2d;}
+    Ei2d HeaderTextPos_Ei2d()   const {return headerTopLeft_Ei2d + headerTextOffset_Ei2d;}
     Ei2d HeaderWH_Ei2d()        const {return headerWH_Ei2d;}
     olc::Pixel BackgroundColor() const {return backgroundColor;}
     olc::Pixel BoarderColor()    const {return boarderColor;}
     olc::Pixel SelectColor()     const {return selectColor;}
     olc::Pixel OptionColor()     const {return optionColor;}
+    olc::Pixel TextColor()       const {return textColor;}
+    std::string HeaderString()   const {return headerString;}
+    std::string OptionStr(int i) const {return options[i];}
     std::vector<Ei2d> OptionTopLeftPoints() const {return optionTopLeftPoints;}
+    std::vector<std::string>& Options() {return options;}
+
 
     //Precompiled Calculations, Run on class construction
     void genMenuPoints() {
@@ -35,10 +43,12 @@ public:
         int unusedSpace = (options.size() + 1) * boarderSize;
         int hightPerItem = (hightToWorkWith - unusedSpace) / options.size();
         optionBoxWH_Ei2d = {widthPerItem,hightPerItem};
+        optionBoxTextOffset_Ei2d = Ei2d(widthPerItem / 6, hightPerItem / 3);
         //Calculate Header Position
         if(hasHeader) {
             headerTopLeft_Ei2d = topLeft_Ei2d + Ei2d(boarderSize * 2, - headerNegOffset);
             headerWH_Ei2d = {widthPerItem,headerHight};
+            headerTextOffset_Ei2d = Ei2d(boarderSize *2, headerHight / 3);
         }
         //Calculate the TL points of the menu item boxes
         int startingHight = topLeft_Ei2d.y + (headerHight - headerNegOffset);
@@ -75,18 +85,22 @@ protected:
     int boarderSize;
     int headerNegOffset = 45;
     int headerHight = 75;
+    float textScale = 1.6f;
     std::string headerString;
     std::vector<std::string> options;
     std::vector<Ei2d> optionTopLeftPoints;
     Ei2d topLeft_Ei2d;
     Ei2d widthHight_Ei2d;
     Ei2d headerTopLeft_Ei2d;
+    Ei2d headerTextOffset_Ei2d;
     Ei2d headerWH_Ei2d;
     Ei2d optionBoxWH_Ei2d;
+    Ei2d optionBoxTextOffset_Ei2d;
     olc::Pixel backgroundColor;
     olc::Pixel boarderColor;
     olc::Pixel optionColor;
     olc::Pixel selectColor;
+    olc::Pixel textColor = olc::WHITE;
 
 };
 
@@ -101,14 +115,16 @@ public:
         headerString = q;
 
         // Setup Fields for Menu
-        options = {"YES", "NO"};
+        options = {"YES", "NO", "MAYBE"};
+        headerString = "Move to New?";
+
         menuHight = 250;
-        menuWidth = 200;
-        boarderSize = 15;
+        menuWidth = 225;
+        boarderSize = 10;
         backgroundColor = olc::Pixel(0,26,51);
         boarderColor = olc::Pixel(18,87,92);
         selectColor = olc::Pixel(155,25,0);
-        optionColor = olc::GREEN;
+        optionColor = olc::DARK_GREEN;
 
 
         genMenuPoints();

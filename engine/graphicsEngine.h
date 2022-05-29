@@ -15,8 +15,9 @@ public:
     void setMousePos(const olc::vi2d& mouse) {mousePosition = mouse; }
     void incrementScale() {scale += 1;}
     void decrementScale() {scale -= 1;}
-    void drawRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
-    void drawFilledRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
+    void drawActiveMenus() const;
+   void drawMenuBackground(const Ei2d& topLeft, const Ei2d& widthHight,
+                           const olc::Pixel& bgColor, const olc::Pixel& bColor, const int boarderSize) const;
 
     bool askYesNoMenu(std::string s);
 
@@ -24,9 +25,6 @@ public:
     int getScreenWidth() const { return pge->ScreenWidth() ;}
 
 
-    void drawActiveMenus() const;
-    void drawMenuBackground(const Ei2d& topLeft, const Ei2d& widthHight,
-                            const olc::Pixel& bgColor, const olc::Pixel& bColor, const int boarderSize) const;
 private:
     olc::PixelGameEngine* pge;
     std::unique_ptr<ASU::Utils> utils;
@@ -42,7 +40,10 @@ private:
 
     bool file_exists(const std::string& name);
     std::string vi2dToString(const olc::vi2d& point) const;
-    void drawString(const std::string s, const olc::vi2d& location) const;
+    void drawString(const std::string& s, const olc::vi2d& location) const;
+    void drawString_Ei2d(const std::string& s, const Ei2d& pos, const float scale = 1.0f, const olc::Pixel color = olc::WHITE) const;
+    void drawRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
+    void drawFilledRect(const Ei2d tl, const Ei2d br, olc::Pixel color) const;
     void calcCenterOff() {
         centerOffset.x = pge->ScreenHeight() / 2;
         centerOffset.y = pge->ScreenWidth()  / 2;

@@ -40,11 +40,6 @@ void GraphicsEngine::drawOrbit(const Ei2d orbitCenterPos,const int solarRadius) 
     pge->DrawCircle(finalPos.x,finalPos.y,newRadius,olc::DARK_CYAN);
 }
 
-
-void GraphicsEngine::drawString(const std::string s, const olc::vi2d& location) const {
-    pge->DrawStringDecal(location,s);
-}
-
 void GraphicsEngine::drawSpacecraft(const Ei2d &pos, const int angle, const olc::Pixel color) const {
     olc::vi2d finalPos = adjustVi2dToScale( utils->ei2dToVi2d(pos));
     float s = scale * 0.03;
@@ -74,24 +69,30 @@ bool GraphicsEngine::askYesNoMenu(std::string s) {
 /// Drawing Menu Functions
 ///
 
-//draw menu takes the menu structured by the class, and gives it to the graphics
-//engine to draw.
+//Function will draw all the active menus stored in activeMenus vector to the screen
 void GraphicsEngine::drawActiveMenus() const {
     //check if there are any menus active
     if(activeMenus.size() <= 0) {return;}
 
     for(int i = 0; i < (int)activeMenus.size(); ++i) {
         //Draw background
-//        drawMenuBackground(activeMenus[i]->TopLeft_Ei2d(),
-//                           activeMenus[i]->WidthHight_Ei2d(),
-//                           activeMenus[i]->BackgroundColor(),
-//                           activeMenus[i]->BoarderColor(),
-//                           activeMenus[i]->BoarderSize());
+        drawMenuBackground(activeMenus[i]->TopLeft_Ei2d(),
+                           activeMenus[i]->WidthHight_Ei2d(),
+                           activeMenus[i]->BackgroundColor(),
+                           activeMenus[i]->BoarderColor(),
+                           activeMenus[i]->BoarderSize());
         //Draw Header if has one
         if(activeMenus[i]->HasHeader()) {
+            //Draw Box
             drawFilledRect(activeMenus[i]->HeaderTopLeft_Ei2d(),
                            activeMenus[i]->HeaderWH_Ei2d(),
                            activeMenus[i]->BoarderColor());
+            //Draw String
+            drawString_Ei2d(activeMenus[i]->HeaderString(),
+                            activeMenus[i]->HeaderTextPos_Ei2d(),
+                            activeMenus[i]->TextScale(),
+                            activeMenus[i]->TextColor());
+
         }
 
         std::vector<Ei2d> optionPoints = activeMenus[i]->OptionTopLeftPoints();
@@ -110,11 +111,14 @@ void GraphicsEngine::drawActiveMenus() const {
                                activeMenus[i]->OptionBoxWH_Ei2d(),
                                activeMenus[i]->OptionColor());
             }
+            //Draw Menu Item String
+            drawString_Ei2d(activeMenus[i]->OptionStr(p),
+                            optionPoints[p] + activeMenus[i]->OptionBoxTextOffset(),
+                            activeMenus[i]->TextScale(),
+                            activeMenus[i]->TextColor());
 
-
-        }
-
-    }
+        } //Closes loop through menu items loop
+    } //Closes loop through active menus
 }
 
 //
@@ -132,12 +136,18 @@ void GraphicsEngine::drawMenuBackground(const Ei2d& topLeft, const Ei2d& widthHi
     drawFilledRect(Ei2d(topLeft.x,topLeft.y + widthHight.y - boarderSize), Ei2d(widthHight.x,boarderSize),bColor);
 }
 
-
-
-
 //  0-------------0
 //  |   PRIVATE   |
 //  0-------------0
+
+void GraphicsEngine::drawString(const std::string &s, const olc::vi2d& location) const {
+    pge->DrawStringDecal(location,s);
+}
+
+void GraphicsEngine::drawString_Ei2d(const std::string &s, const Ei2d &pos, const float scale, const olc::Pixel color) const {
+    pge->DrawStringDecal(utils->ei2dToVi2d(pos), s, color, olc::vf2d(scale,scale));
+}
+
 
 bool GraphicsEngine::file_exists (const std::string& name) {
   struct stat buffer;
