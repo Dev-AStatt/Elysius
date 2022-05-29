@@ -82,23 +82,36 @@ void GraphicsEngine::drawActiveMenus() const {
 
     for(int i = 0; i < (int)activeMenus.size(); ++i) {
         //Draw background
-        drawMenuBackground(activeMenus[i]->TopLeft_Ei2d(),
-                           activeMenus[i]->WidthHight_Ei2d(),
-                           activeMenus[i]->BackgroundColor(),
-                           activeMenus[i]->BoarderColor(),
-                           activeMenus[i]->BoarderSize());
+//        drawMenuBackground(activeMenus[i]->TopLeft_Ei2d(),
+//                           activeMenus[i]->WidthHight_Ei2d(),
+//                           activeMenus[i]->BackgroundColor(),
+//                           activeMenus[i]->BoarderColor(),
+//                           activeMenus[i]->BoarderSize());
         //Draw Header if has one
         if(activeMenus[i]->HasHeader()) {
             drawFilledRect(activeMenus[i]->HeaderTopLeft_Ei2d(),
                            activeMenus[i]->HeaderWH_Ei2d(),
                            activeMenus[i]->BoarderColor());
         }
-        //Draw Menu Items
+
         std::vector<Ei2d> optionPoints = activeMenus[i]->OptionTopLeftPoints();
+        Ei2d mousePos = utils->vi2dToEi2d(pge->GetMousePos());
+        //Loop through Menu Items
         for(int p = 0; p < (int)optionPoints.size(); ++p) {
-            drawFilledRect(optionPoints[p],
-                           activeMenus[i]->OptionBoxWH_Ei2d(),
-                           olc::GREEN);
+            //Check Mouse Colision
+            if(utils->ei2dPointInRect(mousePos, optionPoints[p], activeMenus[i]->OptionBoxWH_Ei2d())) {
+                //Draw Menu Items
+                drawFilledRect(optionPoints[p],
+                               activeMenus[i]->OptionBoxWH_Ei2d(),
+                               activeMenus[i]->SelectColor());
+            } else {
+                //Draw Menu Items
+                drawFilledRect(optionPoints[p],
+                               activeMenus[i]->OptionBoxWH_Ei2d(),
+                               activeMenus[i]->OptionColor());
+            }
+
+
         }
 
     }

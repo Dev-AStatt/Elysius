@@ -32,6 +32,16 @@ public:
         //just call the other written function
         return vi2dPointInSquare(ei2dToVi2d(ei2dPoint), ei2dToVi2d(squareCenterPos), radius);
     }
+    //Function returns true if Ei2d point is [inclusive] within the rectangle bound by rectTL (Top left of box)
+    //and hight width of the box.
+    bool ei2dPointInRect(const Ei2d ei2dPoint, const Ei2d& rectTL, const Ei2d& widthHight) const {
+        if(rectTL.x <= ei2dPoint.x && ei2dPoint.x <= (rectTL.x + widthHight.x)) {
+            if(rectTL.y <= ei2dPoint.y && ei2dPoint.y <= (rectTL.y + widthHight.y)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 };
 }

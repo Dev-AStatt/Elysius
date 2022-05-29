@@ -12,14 +12,16 @@ public:
     int BoarderSize()       const {return boarderSize;}
     Ei2d TopLeft_Ei2d()     const {return topLeft_Ei2d;}
     Ei2d WidthHight_Ei2d()  const {return widthHight_Ei2d;}
-    Ei2d OptionBoxWH_Ei2d()    const {return optionBoxWH_Ei2d;}
-    Ei2d HeaderTopLeft_Ei2d() const {return headerTopLeft_Ei2d;}
-    Ei2d HeaderWH_Ei2d()    const {return headerWH_Ei2d;}
+    Ei2d OptionBoxWH_Ei2d()     const {return optionBoxWH_Ei2d;}
+    Ei2d HeaderTopLeft_Ei2d()   const {return headerTopLeft_Ei2d;}
+    Ei2d HeaderWH_Ei2d()        const {return headerWH_Ei2d;}
     olc::Pixel BackgroundColor() const {return backgroundColor;}
     olc::Pixel BoarderColor()    const {return boarderColor;}
+    olc::Pixel SelectColor()     const {return selectColor;}
+    olc::Pixel OptionColor()     const {return optionColor;}
     std::vector<Ei2d> OptionTopLeftPoints() const {return optionTopLeftPoints;}
 
-    //Precompiled Calculations
+    //Precompiled Calculations, Run on class construction
     void genMenuPoints() {
         //Calculations on Menu Initialization
         topLeft_Ei2d = Ei2d((screenHight / 2) - (menuHight / 2), (screenWidth / 2) - (menuWidth / 2));
@@ -83,6 +85,8 @@ protected:
     Ei2d optionBoxWH_Ei2d;
     olc::Pixel backgroundColor;
     olc::Pixel boarderColor;
+    olc::Pixel optionColor;
+    olc::Pixel selectColor;
 
 };
 
@@ -103,6 +107,8 @@ public:
         boarderSize = 15;
         backgroundColor = olc::Pixel(0,26,51);
         boarderColor = olc::Pixel(18,87,92);
+        selectColor = olc::Pixel(155,25,0);
+        optionColor = olc::GREEN;
 
 
         genMenuPoints();
