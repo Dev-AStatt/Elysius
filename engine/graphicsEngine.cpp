@@ -17,6 +17,36 @@ GraphicsEngine::GraphicsEngine(olc::PixelGameEngine* p, std::shared_ptr<GameStat
     sprShip = std::make_unique<olc::Sprite>(spaceship_file_name);
     decShip = std::make_unique<olc::Decal>(sprShip.get());
 
+    //getting decals for the background
+    std::string background_file_name = "art/background.png";
+    if(!file_exists(background_file_name)) {
+        throw std::invalid_argument( "Cannot find background file" );
+    }
+    sprBackground = std::make_unique<olc::Sprite>(background_file_name);
+    decBackground = std::make_unique<olc::Decal>(sprBackground.get());
+
+
+    //
+    //This section is setting up the background layer and sprite
+    // NOTE: Try this in OnUserCreate and See if FPS goes up
+
+    //Create a new layer behind the front display layer
+    nLayerGame = pge->CreateLayer();
+    //Set the target to the new layer
+    pge->SetDrawTarget(nLayerGame);
+    pge->Clear(olc::BLACK);
+    //Setting pixel mode to alpha and back was in the tutorial, but doesn't seem to do anything
+    pge->SetPixelMode(olc::Pixel::ALPHA);
+    pge->DrawSprite({1,1},sprBackground.get());
+    pge->SetPixelMode(olc::Pixel::NORMAL);
+    //Enable the layer in PGE and tell PGE to render the new layer when needed
+    pge->EnableLayer(nLayerGame, true);
+    //Set the drawing target back to the normal layer
+    pge->SetDrawTarget(nullptr);
+    //
+    //End of Setting up Background Layers
+    //
+
 }
 
 
@@ -41,8 +71,12 @@ void GraphicsEngine::drawSpacecraft(const Ei2d &pos, const int angle, const olc:
     olc::vi2d finalPos = adjustVi2dToScale( utils->ei2dToVi2d(pos));
     float s = scale * 0.03;
     float aRad = (-1) * (angle + 90) * 3.14 / 180;
-    //removing this line just for a minute while we use a triangle for a spaceship
+    //We want the ship on the Game Layer, so set the drawing target to nLayerGame
+    pge->SetDrawTarget(nLayerGame);
     pge->DrawRotatedDecal(finalPos,decShip.get(), aRad + 1.57, {50,50}, {s,s});
+    //Set the drawing target back to normal
+    pge->SetDrawTarget(nullptr);
+
 
 }
 

@@ -36,6 +36,10 @@ public:
 
 
 private:
+    //Game display Layers
+    int nLayerUI = 0;
+    int nLayerGame;
+
     olc::PixelGameEngine* pge;
     std::unique_ptr<ASU::Utils> utils;
     std::shared_ptr<GameStates> gameStates;
@@ -44,8 +48,11 @@ private:
     Ei2d centerOffset;
     olc::vi2d mousePosition = {0,0};
     int scale = 2;
+    //Decals
     std::unique_ptr<olc::Sprite> sprShip;
     std::unique_ptr<olc::Decal> decShip;
+    std::unique_ptr<olc::Sprite> sprBackground;
+    std::unique_ptr<olc::Decal> decBackground;
 
 
 

@@ -33,7 +33,7 @@ public:
         }
         if(systemID == spacecraft->getSolarSystem()) {
             //just while working on the menu, comment out draw spacecraft
-            //graphics->drawSpacecraft(spacecraft->getPos(), spacecraft->getOrbitAngle());
+            graphics->drawSpacecraft(spacecraft->getPos(), spacecraft->getOrbitAngle());
         }
     }
 

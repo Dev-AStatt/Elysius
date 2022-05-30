@@ -20,7 +20,7 @@ bool ElysiusGameLoop::OnUserCreate() {
 
 bool ElysiusGameLoop::OnUserUpdate(float fElapsedTime) {
     // Called once per frame
-    Clear(olc::BLACK);
+    Clear(olc::BLANK);
     //Clear any gameState Flags that have been set
     gameStates->clearFlags();
 
